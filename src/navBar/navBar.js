@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
-import Logo from '../img/newLogo.jpg'
+import Logo from '../img//newLogo-removebg-preview.png'
 
 import { ButtonGroup } from '@mui/material';
 import BasicTextFields from '../search/search';
@@ -41,7 +41,7 @@ export default function ButtonAppBar() {
                     width:"100px",
                     height:"auto",
                     borderRadius:'10px',
-                    backgroundColor:'wheat'
+                   
                 }}
                 />
                 </Box>
