@@ -1,7 +1,9 @@
 import axios from "axios";
 
-const api  = axios.create ({
+
+export const api  = axios.create ({
     baseURL:"https://rickandmortyapi.com/api"
 })
-
-export default api
+export const api_users = axios.create ({
+    baseURL:"https://jwt-bearer-auth1.p.rapidapi.com"
+})

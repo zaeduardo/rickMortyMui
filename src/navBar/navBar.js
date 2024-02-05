@@ -7,56 +7,67 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { Link } from 'react-router-dom';
 import Logo from '../img//newLogo-removebg-preview.png'
-
 import { ButtonGroup } from '@mui/material';
 import BasicTextFields from '../search/search';
+import { CharactersContext } from '../context/characterContext';
+import Login from '../login/login_index';
+
+
+
 export default function ButtonAppBar() {
+
+
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{backgroundColor:"#7A55F3"}}>
+      <AppBar position="static" sx={{ backgroundColor: "#7A55F3" }}>
+
         <Toolbar>
-       
+
           <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{ mr: 2,  }}
+            sx={{ mr: 2, }}
           >
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          <Link to="/">
+            <Link to="/">
 
-            <Box
-            sx={{
+              <Box
+                sx={{
+                  width: '150px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+              
+                }}>
 
-              width:'150px',
-              display:'flex',
-              alignItems:'center',
-              justifyContent:'center'
-            }}>
-            
                 <img src={Logo}
-                style={{
-                    width:"100px",
-                    height:"auto",
-                    borderRadius:'10px',
-                   
-                }}
+                  style={{
+                    width: "100px",
+                    height: "auto",
+                    borderRadius: '10px',
+
+                  }}
                 />
-                </Box>
-          </Link>
+              </Box>
+            </Link>
+
           </Typography>
           <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                    <Button sx={{backgroundColor:"#14D975", color:"black"}}variant="contained" component={Link} to="/pg1" color="inherit">Lista</Button >
-                    <Button sx={{backgroundColor:"#14D975",color:"black" }} variant="contained" component={Link} to="/pg2" color="inherit" >Card</Button>
-                   
-                   
-</ButtonGroup>
-          
+            <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" component={Link} to="/pg1" color="inherit">Card</Button >
+            <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" component={Link} to="/pg2" color="inherit" >Lista</Button>
+            <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" component={Link} to="/Login" color="inherit" >Login</Button>
 
-          
+
+
+          </ButtonGroup>
+
+
+
         </Toolbar>
+
       </AppBar>
     </Box>
   );

@@ -10,14 +10,22 @@ import Pagina2 from './Paginas/pg2_Table';
 import Home from './Paginas/home';
 import CharactersProvider from './context/characterContext'
 import ButtonAppBar from './navBar/navBar';
+import Login from './login/login_index';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import LoginProvider from './context/LoginContext';
+
 
 function App() {
   return (
     <div className="App">
+          <LoginProvider>
+
           
         <CharactersProvider> 
           
       <ThemeProvider theme={LightTheme}>
+        <ToastContainer/>
         <Router>
           <div style={{
               backgroundImage: `url(${ImagemFundo})`,
@@ -25,11 +33,13 @@ function App() {
              
           }}>
             <Routes>
-              <Route path="/" element={<Home/>} />
+              <Route path="/" element={<Login/>} />
               <Route path="/home" element={<Home/>} />
 
               <Route path="/pg1" element={<Pagina1 />} />
               <Route path="/pg2" element={<Pagina2 />} />
+              <Route path="/Login" element={<Login/>} />
+         
             </Routes>
           </div>
         </Router>
@@ -38,7 +48,7 @@ function App() {
       </ThemeProvider>
       
           </CharactersProvider> 
-
+          </LoginProvider>
     </div>
   );
 }

@@ -2,23 +2,29 @@ import React, {useContext} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { CharactersContext } from "../context/characterContext";
-import { Button, Input } from '@mui/material';
+import { Button, Input, backdropClasses } from '@mui/material';
 import { ChangeCircle, SearchOutlined } from '@mui/icons-material';
 import { FaSearch } from "react-icons/fa";
-
+import Select from 'react-select';
+import CardLocation from '../paginasSelect/pagina';
 
 
 export default function BasicTextFields() {
-       const {input, setInput, getDataSearch, } = useContext(CharactersContext)
-  return (
+       const {input, setInput, getDataSearch,typeSelect, setTypeSelect, } = useContext(CharactersContext)
+       const options = [
+        { value: 'character', label: 'Personagens' },
+        { value: 'location', label: 'Localização' },
+        { value: 'episode', label: 'Episódios' }
+        ]
+
+       return (
     <Box
       component="form"
       sx={{
         '& > :not(style)': { m: 1, width: '25ch' },
         width:'100%',
         height:'auto',
-
-        backgroundColor:'wheat',
+        backgroundColor:'#8EC97A',
         display:'flex',
         justifyContent:'center',
         alignContent:'center'
@@ -27,54 +33,32 @@ export default function BasicTextFields() {
       autoComplete="off"
     >
   
-    <div style={{display:'flex'}}>
+    <div style={{display:'flex', width:'400px', }}>
       <TextField
-        label='Busque por Personagem'
+     label={`Busque por ${typeSelect.label}`}
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => setInput(e?.target?.value)}
         type='text'
         placeholder='Pesquisa'
+      
       />
-    <Button onClick={(e)=> getDataSearch()}><FaSearch /></Button>
+    <Button  onClick={(e)=> getDataSearch()} ><FaSearch /></Button>
     </div>
 
     <div style={{
       display:'flex',
+
       }}>
-      <Button  onClick={(e)=> console.log("ESSE BOTÃO DEVE MUDAR O VALOR DO STATE typeSearch, para seu respectivo tipo de busca")
-    }><ChangeCircle size={20} /></Button>
+         <Select styles={{ 
+        control: (provided ) => ({
+          ...provided,
+          width:'400px',
+          height:'50px',
+
+        })
+        }} options={options} value={typeSelect} onChange={(e)=> {setTypeSelect(e)
+          console.log(e?.value)}}/> 
     </div> 
-
-     {/*<div style={{
-      display:'flex',
-      }}>
-      <TextField
-        label='Busque por Episodio'
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        type='text'
-        placeholder='Pesquisa'
-      />
-    <Button onClick={(e)=> getDataSearch()}><FaSearch /></Button>
-    </div> 
-
-
-
-    <div style={{
-    display:'flex',
-
-}}>
-
-      <TextField
-        label='Busque por Localização'
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        type='text'
-        placeholder='Pesquisa'
-      />
-    <Button onClick={(e)=> getDataSearch()}><FaSearch /></Button>
-    </div> 
- */}
 
     </Box>
    

@@ -2,7 +2,7 @@ import React from "react";
 import { AppBar, Box, Button, CardMedia } from '@mui/material';
 import { Link } from "react-router-dom";
 import { StyledPage } from "../style";
-import Logo from "../../src/img/newLogoHome.png"
+ import Logo from "../../src/img/newLogoHome.png"
 const Home = () => {
   return (
     
@@ -38,6 +38,7 @@ const Home = () => {
         >
           CARD
         </Button>
+        
         {/* Pagina 2 é referente a a pagina  das tabelas */}
         <Button
           component={Link}
