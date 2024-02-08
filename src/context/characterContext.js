@@ -44,18 +44,9 @@ function CharactersProvider ({children}){
 
         await api.get(`/${typeSelect.value}/${urlSearch}`)
             .then((response) => {
-            console.log({"🪲":response.data.length ?true: false});
+            // console.log({"🪲":response.data.length ?true: false});
                typeSelect.value === "character" ? setData(response.data.results): setData(response.data.length? response.data: [response.data] ) 
 
-                // if (typeSelect.value === "character" ) {
-                //     setData(response.data.results)
-                        
-                // }else { 
-                //     setData(response.data)
-                // }
-            
-                
-                // console.log(response.data.results);
             }
             ).catch((error)=> {
                 console.log(error);

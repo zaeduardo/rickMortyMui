@@ -1,50 +1,68 @@
-import { createContext, us, useState } from "react";
-import { api_users } from "../api/api";
+import { createContext, useState } from "react";
+import { api, api_users } from "../api/api";
+import { setCookie } from 'nookies'
 
-export const LoginContext  = createContext()
 
-function LoginProvider ({children}) { 
-    const [userLogin, setUserLogin] = useState ('')
-    const [passLogin, setPassLogin] =  useState('') 
-    
-    const config = {
+export const LoginContext = createContext();
+
+function LoginProvider({ children }) {
+    const [userLogin, setUserLogin] = useState('');
+    const [passLogin, setPassLogin] = useState('');
+    const [token, setToken] = useState('');
+    // cookies
+
+
+    async function login_api() {
+
+
+        const config = {
             headers: {
                 'content-type': 'application/json',
                 'X-RapidAPI-Key': 'd001b32cbdmshfd0590bd375a310p1ab2e0jsn2b012bf48ad3',
                 'X-RapidAPI-Host': 'jwt-bearer-auth1.p.rapidapi.com'
             }
         }
-        
-        async function  login_api( ) {
-            const body = {
-                email: 'your_email@gdomain.com',
-                password: 'Your_password123.'
-            }
-            await api_users.post('/login', body, config)
-           
-           
-            .then((response)=>{
-               console.log('Token 👍', response.data ); 
-            })   
-            .catch((err)=>{
-               console.error(err) 
-            })   
-            .finally(()=>{
-               console.log(' asa'); 
-            })   
-            }
+
+        const body = {
+            email: 'your_email@gdomain.com',
+            password: 'Your_password123.'
+        }
+        await api_users.post('/login', body, config)
+
+            .then((response) => {
+                    const token = response.data
+                console.log('Token 👍', token);
+            })
+            .catch((error) => {
+                console.log('Erro 👎 ', error);
+            })
+            .finally(() => { })
+
+
+        //     await api_users.post('/login', body, config);
+        //     const token_a = response.data.token;
+        //     setToken(token_a);
+        //     console.log('Token 👍', token_a);
+
+        // } catch (error) {
+        //     console.error(error);
+        // }
+
+    }
 
     return (
         <LoginContext.Provider
-                    value={{userLogin , setUserLogin, 
-                passLogin, setPassLogin,
-                 login_api  }}>
+            value={{
+                userLogin,
+                setUserLogin,
+                passLogin,
+                setPassLogin,
+                login_api,
 
-
+            }}>
             {children}
         </LoginContext.Provider>
-    )
+    );
 }
 
-
-export default LoginProvider
+export default LoginProvider;
