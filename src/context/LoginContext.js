@@ -8,10 +8,9 @@ export const LoginContext = createContext();
 function LoginProvider({ children }) {
     const [userLogin, setUserLogin] = useState('');
     const [passLogin, setPassLogin] = useState('');
-    const [token, setToken] = useState('');
+
+
     // cookies
-
-
     async function login_api() {
 
 
@@ -27,19 +26,27 @@ function LoginProvider({ children }) {
             email: 'your_email@gdomain.com',
             password: 'Your_password123.'
         }
+
         await api_users.post('/login', body, config)
 
             .then((response) => {
-                    const token = response.data
-                console.log('Token 👍', token);
+
+                const tokenPuro = response.data.token
+                console.log('Token 🟠',tokenPuro);
+
+                setCookie(null, 'token', tokenPuro, {
+                    maxAge: 60,
+                    path: '/',
+                })
+
+
             })
             .catch((error) => {
                 console.log('Erro 👎 ', error);
             })
             .finally(() => { })
 
-
-        //     await api_users.post('/login', body, config);
+//     await api_users.post('/login', body, config);
         //     const token_a = response.data.token;
         //     setToken(token_a);
         //     console.log('Token 👍', token_a);

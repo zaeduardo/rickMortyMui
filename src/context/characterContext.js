@@ -1,7 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
 import { api } from "../api/api";
-
 export const CharactersContext  = createContext()
 
 
@@ -44,7 +42,7 @@ function CharactersProvider ({children}){
 
         await api.get(`/${typeSelect.value}/${urlSearch}`)
             .then((response) => {
-            // console.log({"🪲":response.data.length ?true: false});
+            console.log({"🪲":response.data.length ?true: false});
                typeSelect.value === "character" ? setData(response.data.results): setData(response.data.length? response.data: [response.data] ) 
 
             }
