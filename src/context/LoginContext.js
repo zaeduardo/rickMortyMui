@@ -1,6 +1,8 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { api, api_users } from "../api/api";
-import { setCookie } from 'nookies'
+import { parseCookies, setCookie } from 'nookies'
+import { useNavigate } from "react-router-dom";
+import { Toast } from "react-toastify/dist/components";
 
 
 export const LoginContext = createContext();
@@ -8,11 +10,10 @@ export const LoginContext = createContext();
 function LoginProvider({ children }) {
     const [userLogin, setUserLogin] = useState('');
     const [passLogin, setPassLogin] = useState('');
-
+    
 
     // cookies
     async function login_api() {
-
 
         const config = {
             headers: {
@@ -31,22 +32,23 @@ function LoginProvider({ children }) {
 
             .then((response) => {
 
-                const tokenPuro = response.data.token
-                console.log('Token 🟠',tokenPuro);
+                // const tokenPuro = response.data.token
+                // console.log('Token 🟠',tokenPuro);
 
-                setCookie(null, 'token', tokenPuro, {
+                setCookie(null, 'token', response.data.token, {
                     maxAge: 60,
                     path: '/',
                 })
 
 
             })
+            
             .catch((error) => {
                 console.log('Erro 👎 ', error);
             })
             .finally(() => { })
 
-//     await api_users.post('/login', body, config);
+        //     await api_users.post('/login', body, config);
         //     const token_a = response.data.token;
         //     setToken(token_a);
         //     console.log('Token 👍', token_a);
@@ -56,6 +58,10 @@ function LoginProvider({ children }) {
         // }
 
     }
+        const recuperarCookies = parseCookies();
+         console.log('Token Recuperado', recuperarCookies.token);
+
+   
 
     return (
         <LoginContext.Provider
@@ -65,7 +71,8 @@ function LoginProvider({ children }) {
                 passLogin,
                 setPassLogin,
                 login_api,
-
+                setCookie,
+                
             }}>
             {children}
         </LoginContext.Provider>

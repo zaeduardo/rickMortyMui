@@ -2,15 +2,16 @@ import React, { useContext, useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { LoginContext } from "../context/LoginContext";
 import { Link } from "react-router-dom";
-import newLogo from "../img/newLogoHome.png"
+import { parseCookies } from 'nookies'
+import newLogo from "../img/newLogoHome.png";
 import Home from "../Paginas/home";
 
+
 function Login() {
-
-    const { userLogin, setUserLogin, passLogin, setPassLogin, login_api } = useContext(LoginContext)
-
+    const { userLogin, setUserLogin, passLogin, setPassLogin, login_api, setCo } = useContext(LoginContext);
     // const a = 1
     // return !a ? true: false ;
+   
     return (
         <Box sx={{
             width: '100vw',
@@ -19,11 +20,10 @@ function Login() {
             justifyContent: 'center',
             alignItems: 'center',
             backgroundColor: 'white'
-
         }}>
             <Box sx={{
                 backgroundColor: "#FFFFFF",
-                border:'black',
+                border: 'black',
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -40,7 +40,7 @@ function Login() {
                 </Box>
 
                 <Box sx={{ height: '50%', width: '90%', display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', }}>
-                    <TextField id="outlined-basic"
+                    <TextField id="outlined-basico"
                         value={userLogin} onChange={(e) => setUserLogin(e.target.value)}
                         label="User"
                         type="text"
@@ -59,17 +59,16 @@ function Login() {
                 <Box sx={{ height: '20%', marginLeft: '60%' }}>
                     <div style={{ display: 'flex', width: 'px' }}>
                         <Button sx={{ backgroundColor: '#92C87C', color: 'black', marginTop: '30px', width: '70%', marginRight: '10px' }} onClick={login_api} variant="contained" >  Loogin </Button>
-                        <Link to="/register_index.js" > 
-                          <Button sx={{ backgroundColor: '#92C87C', color: 'black', marginTop: '30px', width: '70%' }} variant="contained" > Register<Link to="/"></Link> </Button>
+                        <Link to="/register_index.js" >
+                            <Button sx={{ backgroundColor: '#92C87C', color: 'black', marginTop: '30px', width: '70%' }} variant="contained" > Register<Link to="/"></Link> </Button>
                         </Link>
-
-
                     </div>
                 </Box>
 
             </Box>
         </Box>
-    )
+    );
+
 }
 
 export default Login;
