@@ -5,24 +5,28 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-import { Link } from 'react-router-dom';
+import { Link, useActionData } from 'react-router-dom';
 import Logo from '../img//newLogo-removebg-preview.png'
 import { ButtonGroup } from '@mui/material';
 import BasicTextFields from '../search/search';
 import { CharactersContext } from '../context/characterContext';
 import Login from '../login/login_index';
-
+import { LoginContext } from '../context/LoginContext';
+import { RegisterContext } from '../context/registerContext';
 
 
 export default function ButtonAppBar() {
-
-
+  const {name, setName, emailRegister } = React.useContext(RegisterContext)
+  const { destroy, autenticacao } = React.useContext(LoginContext)
+  
+  
   return (
+  
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: "#7A55F3" }}>
 
+     
         <Toolbar>
-
           <IconButton
             size="large"
             edge="start"
@@ -40,7 +44,7 @@ export default function ButtonAppBar() {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-              
+
                 }}>
 
                 <img src={Logo}
@@ -56,12 +60,16 @@ export default function ButtonAppBar() {
 
           </Typography>
           <ButtonGroup variant="contained" aria-label="outlined primary button group">
+
             <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" component={Link} to="/pg1" color="inherit">Card</Button >
             <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" component={Link} to="/pg2" color="inherit" >Lista</Button>
-            <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" component={Link} to="/Login" color="inherit" >Login</Button>
 
-
-
+            {!autenticacao() ?
+              // 
+              <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" onClick={destroy} component={Link} to="/Login" color="inherit" >Login </Button>
+              // 
+              : <Button sx={{ backgroundColor: "#14D975", color: "black" }} variant="contained" onClick={destroy} component={Link} to="/Login" color="inherit" >Logout </Button>
+            }
           </ButtonGroup>
 
 

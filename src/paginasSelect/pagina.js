@@ -5,7 +5,7 @@ import { Box, Card, CardContent, CardMedia, CircularProgress, Typography } from 
 import { CharactersContext } from "../context/characterContext";
 import { DataGrid } from "@mui/x-data-grid";
 
-
+// aki VAI SER O CONTEUDO QUE TEM DENTRO DA PAGINA 1 E DA PAGINAA 2 
 export function CardCharacter () {
     const { data, getData, isLoading } = useContext(CharactersContext);
 
@@ -152,7 +152,7 @@ export function CardLoc () {
                 color:'white',
                 margin: '20px',
               }}>
-               { console.log(location)}
+         
                 <div className='spans'>
                   <CardContent
                     sx={{
@@ -254,7 +254,7 @@ export function CardEp () {
             color:'white',
             margin: '20px',
           }}>
-           { console.log(episode)}
+        
             <div className='spans'>
               <CardContent
                 sx={{

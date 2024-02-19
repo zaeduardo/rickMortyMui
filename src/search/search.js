@@ -57,7 +57,7 @@ export default function BasicTextFields() {
 
         })
         }} options={options} value={typeSelect} onChange={(e)=> {setTypeSelect(e)
-          console.log(e?.value)}}/> 
+          }}/> 
     </div> 
 
     </Box>

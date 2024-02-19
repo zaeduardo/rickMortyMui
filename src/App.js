@@ -13,43 +13,45 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoginProvider from './context/LoginContext';
 import Registro from './register/register_index';
+import RegisterProvider, { RegisterContext } from './context/registerContext';
 
 
 function App() {
   return (
-    <div className="App" style={{ backgroundColor:'orange'}}>
-          <LoginProvider>
+    <div className="App" style={{ backgroundColor: 'orange' }}>
+      <Router>
+        <LoginProvider>
+          <RegisterProvider>
 
-          
-        <CharactersProvider> 
-          
-      <ThemeProvider theme={LightTheme}>
-        <ToastContainer/>
-        <Router>
-          <div style={{
-              backgroundImage: `url(${ImagemFundo})`,
-              backgroundSize: "cover",
-             
-          }}>
-            <Routes>
-              <Route path="/" element={<Login/>} />
-              <Route path="/Login" element={<Login/>} />
-              <Route path="/register_index" element={<Registro/>}/>
-              <Route path="/home" element={<Home />} />
-              <Route path="/pg1" element={<Pagina1 />} />
-              <Route path="/pg2" element={<Pagina2/>} />
-            
-                
+            <CharactersProvider>
 
-            </Routes>
-          </div>
-        </Router>
+              <ThemeProvider theme={LightTheme}>
+                <ToastContainer />
+                <div style={{
+                  backgroundImage: `url(${ImagemFundo})`,
+                  backgroundSize: "cover",
+
+                }}>
+                  <Routes>
+                    <Route path="/" element={<Login />} />
+                    <Route path="/Login" element={<Login />} />
+                    <Route path="/register" element={<Registro />} />
+                    <Route path="/home" element={<Home />} />
+                    <Route path="/pg1" element={<Pagina1 />} />
+                    <Route path="/pg2" element={<Pagina2 />} />
 
 
-      </ThemeProvider>
-      
-          </CharactersProvider> 
-          </LoginProvider>
+
+                  </Routes>
+                </div>
+
+
+              </ThemeProvider>
+
+            </CharactersProvider>
+          </RegisterProvider>
+        </LoginProvider>
+      </Router>
     </div>
   );
 }

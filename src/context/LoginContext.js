@@ -1,18 +1,19 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { api, api_users } from "../api/api";
-import { parseCookies, setCookie } from 'nookies'
-import { useNavigate } from "react-router-dom";
-import { Toast } from "react-toastify/dist/components";
-
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
+import { Route, Router, useNavigate, useHistory, Routes } from "react-router-dom";
+import { toast } from "react-toastify";
+import { Home, Login } from "@mui/icons-material";
+import Pagina1 from "../Paginas/pg1_Card";
 
 export const LoginContext = createContext();
 
 function LoginProvider({ children }) {
+
     const [userLogin, setUserLogin] = useState('');
     const [passLogin, setPassLogin] = useState('');
-    
-
-    // cookies
+    const navigate = useNavigate('')
+    // cookies, FUNÇÃO CHAMADA NO BTN LOGIN, OU SEJA TUDO Q ESTIVER AKI DENTRO VAI SER CHAMDO QUANDO CLICAR NO BTN 
     async function login_api() {
 
         const config = {
@@ -24,44 +25,44 @@ function LoginProvider({ children }) {
         }
 
         const body = {
-            email: 'your_email@gdomain.com',
-            password: 'Your_password123.'
+            email: `${userLogin}`,
+            password: `${passLogin}`
         }
 
         await api_users.post('/login', body, config)
 
             .then((response) => {
 
-                // const tokenPuro = response.data.token
-                // console.log('Token 🟠',tokenPuro);
+                toast.success('Logado')
+                navigate('/home')
 
                 setCookie(null, 'token', response.data.token, {
-                    maxAge: 60,
+                    maxAge: 30 * 24 * 60 * 60,
                     path: '/',
+
                 })
 
-
             })
-            
             .catch((error) => {
                 console.log('Erro 👎 ', error);
+                toast.error('Senha ou usuario invalido')
             })
-            .finally(() => { })
+            .finally(() => {
 
-        //     await api_users.post('/login', body, config);
-        //     const token_a = response.data.token;
-        //     setToken(token_a);
-        //     console.log('Token 👍', token_a);
-
-        // } catch (error) {
-        //     console.error(error);
-        // }
+            })
 
     }
-        const recuperarCookies = parseCookies();
-         console.log('Token Recuperado', recuperarCookies.token);
+    function autenticacao() {
 
-   
+        const parse = parseCookies()
+        const arr = Object.keys(parse)
+        return arr.includes('token')
+
+    }
+
+    function destroy() {
+        destroyCookie(null, 'token')
+    }
 
     return (
         <LoginContext.Provider
@@ -72,7 +73,8 @@ function LoginProvider({ children }) {
                 setPassLogin,
                 login_api,
                 setCookie,
-                
+                destroy,
+                autenticacao
             }}>
             {children}
         </LoginContext.Provider>
